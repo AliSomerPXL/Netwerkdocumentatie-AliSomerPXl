@@ -14,7 +14,7 @@ transport input ssh
 
 # SSH Configuratie
 ip domain-name netwerk.local
-crypto key generate rsa modulus 1024
+crypto key generate rsa general-keys modulus 1024
 ip ssh version 2
 
 # IPv4-configuratie
