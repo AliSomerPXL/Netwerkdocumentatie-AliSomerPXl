@@ -1,1 +1,72 @@
+------------------
+SW1 (PC's VLAN 10) 
+------------------
 
+enable
+configure terminal
+hostname SW1
+
+# Wachtwoordbeveiliging
+enable secret class
+line console 0
+password cisco
+login
+line vty 0 4
+password cisco
+login
+transport input ssh
+
+# VLAN-configuratie
+vlan 10
+name PCs
+
+# Poorttoewijzingen
+interface range FastEthernet0/1-10
+switchport mode access
+switchport access vlan 10
+
+# Gateway instellen
+interface vlan 10
+ip address 192.168.1.2 255.255.255.0
+no shutdown
+
+# Save configuratie
+end
+write memory
+
+
+---------------------
+SW2 (Laptops VLAN 20)
+---------------------
+
+enable
+configure terminal
+hostname SW2
+
+# Wachtwoordbeveiliging
+enable secret class
+line console 0
+password cisco
+login
+line vty 0 4
+password cisco
+login
+transport input ssh
+
+# VLAN-configuratie
+vlan 20
+name Laptops
+
+# Poorttoewijzingen
+interface range FastEthernet0/1-10
+switchport mode access
+switchport access vlan 20
+
+# Gateway instellen
+interface vlan 20
+ip address 192.168.2.2 255.255.255.0
+no shutdown
+
+# Save configuratie
+end
+write memory
