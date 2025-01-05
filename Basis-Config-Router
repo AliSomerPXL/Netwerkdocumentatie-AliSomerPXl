@@ -1,1 +1,39 @@
+enable
+configure terminal
+hostname R1
 
+# Wachtwoordbeveiliging
+enable secret class
+line console 0
+password cisco
+login
+line vty 0 4
+password cisco
+login
+transport input ssh
+
+# SSH Configuratie
+ip domain-name netwerk.local
+crypto key generate rsa modulus 1024
+ip ssh version 2
+
+# IPv4-configuratie
+interface GigabitEthernet0/0/0
+ip address 192.168.1.1 255.255.255.0
+no shutdown
+
+interface GigabitEthernet0/0/1
+ip address 192.168.2.1 255.255.255.0
+no shutdown
+
+# IPv6-configuratie
+ipv6 unicast-routing
+interface GigabitEthernet0/0/0
+ipv6 address 2001:db8:1::1/64
+
+interface GigabitEthernet0/0/1
+ipv6 address 2001:db8:2::1/64
+
+# Save configuratie
+end
+write memory
